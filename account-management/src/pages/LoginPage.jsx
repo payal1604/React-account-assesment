@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Correct import for React Router v6
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";  // Correct import for React Router v6
 
 const LoginPage = ({ setUser }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();  // Use useNavigate in place of useHistory
 
   const handleLogin = () => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     const parsedUser = storedUser ? JSON.parse(storedUser) : null;
 
     if (parsedUser && parsedUser.email === email && parsedUser.password === password) {
-      setUser(parsedUser);
-      navigate('/account');  // Correct way to navigate with useNavigate
+      // On successful login, set user and update localStorage
+      setUser(parsedUser);  // Pass the user data to the parent (App.js)
+      navigate("/account");  // Redirect to the account page
     } else {
-      setError('Invalid email or password');
+      setError("Invalid email or password");
     }
   };
 
@@ -41,7 +42,7 @@ const LoginPage = ({ setUser }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button className="btn btn-primary" onClick={handleLogin}>
+      <button className="btn btn-primary mt-2" onClick={handleLogin}>
         Login
       </button>
       <p className="mt-3">

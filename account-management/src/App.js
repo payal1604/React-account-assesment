@@ -12,7 +12,7 @@ function App() {
     const storedUser = localStorage.getItem("user");
     const parsedUser = storedUser ? JSON.parse(storedUser) : null;
     if (parsedUser) {
-      setUser(parsedUser);
+      setUser(parsedUser); // Set user from localStorage if found
     }
   }, []);
 
